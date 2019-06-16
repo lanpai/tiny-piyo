@@ -20,6 +20,11 @@ class Window
         bool ShouldClose() { return glfwWindowShouldClose(this->_window); };
         unsigned int GetKey(unsigned int key) { return glfwGetKey(this->_window, key); };
         void SwapBuffers() { glfwSwapBuffers(this->_window); };
+
+        int GetScreenWidth() { return this->_width; };
+        int GetScreenHeight() { return this->_height; };
+
+        void SetScreenTitle(const std::string& name) { glfwSetWindowTitle(this->_window, name.c_str()); };
     private:
         GLFWwindow* _window;
 
