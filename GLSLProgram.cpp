@@ -1,6 +1,4 @@
-#include "Shader.h"
-
-#include <GL/glew.h>
+#include "GLSLProgram.h"
 
 #include <fstream>
 #include <sstream>
@@ -90,4 +88,28 @@ unsigned int CreateShader(const std::string& vertexShader, const std::string& fr
     glDeleteShader(fs);
 
     return program;
+}
+
+GLSLProgram::GLSLProgram(const std::string& file)
+{
+    ShaderProgramSource source = ParseShader(file.c_str());
+    this->_programID = CreateShader(source.VertexSource, source.FragmentSource);
+}
+
+GLSLProgram::~GLSLProgram()
+{
+    glDeleteProgram(this->_programID);
+}
+
+unsigned int GLSLProgram::GetUniformLocation(const std::string& name)
+{
+    this->Use();
+    return glGetUniformLocation(this->_programID, name.c_str());
+}
+
+void GLSLProgram::UniformMatrix4fv(const std::string& name, glm::mat4& matrix)
+{
+    this->Use();
+    unsigned int id = this->GetUniformLocation(name);
+    glUniformMatrix4fv(id, 1, GL_FALSE, &matrix[0][0]);
 }

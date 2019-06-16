@@ -1,6 +1,8 @@
 #ifndef _CAMERA_H
 #define _CAMERA_H
 
+#include "GLSLProgram.h"
+
 #include <glm/mat4x4.hpp>
 
 class Camera
@@ -8,7 +10,7 @@ class Camera
     public:
         Camera(int width, int height, float fov, float near, float far);
 
-        void Update(unsigned int programID);
+        void Update(GLSLProgram& program);
 
         void SetX(float x) { this->_position.x = -1.0f * x; }
         void SetY(float y) { this->_position.y = -1.0f * y; }

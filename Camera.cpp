@@ -13,7 +13,7 @@ Camera::Camera(int width, int height, float fov, float near = 0.01f, float far =
     this->_rotation = glm::vec3(0.0f);
 };
 
-void Camera::Update(unsigned int programID)
+void Camera::Update(GLSLProgram& program)
 {
     // Initializing forward vector
     glm::vec3 forward = glm::vec3(
@@ -42,7 +42,5 @@ void Camera::Update(unsigned int programID)
         );
 
     // Sending view matrix to GPU
-    glUseProgram(programID);
-    unsigned int viewID = glGetUniformLocation(programID, "view");
-    glUniformMatrix4fv(viewID, 1, GL_FALSE, &view[0][0]);
+    program.UniformMatrix4fv("view", view);
 }

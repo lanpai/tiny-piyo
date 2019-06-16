@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "GLSLProgram.h"
 #include "Camera.h"
 
 #include <GL/glew.h>
@@ -71,14 +71,8 @@ int main(void)
     // Initialize camera
     Camera camera(640, 480, 90.0f, 0.01f, 1000.0f);
 
-    // Initialize the vertex and fragment shaders
-    ShaderProgramSource source = ParseShader("res/shaders/basic.shader");
-    std::printf("Vertex shader:\n%s\nFragment shader:\n%s\n",
-            source.VertexSource.c_str(),
-            source.FragmentSource.c_str());
-    unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
-    glUseProgram(shader);
-    std::printf("Shader program initialized as #%d\n", shader);
+    // Initialize the GLSL shader program
+    GLSLProgram shader("res/shaders/basic.shader");
 
     // Main loop
     double timeInitial = glfwGetTime();
@@ -117,8 +111,6 @@ int main(void)
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
-    glDeleteProgram(shader);
 
     glfwTerminate();
     return 0;
