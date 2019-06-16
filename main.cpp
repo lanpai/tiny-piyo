@@ -1,34 +1,26 @@
 #include "GLSLProgram.h"
 #include "Camera.h"
+#include "Window.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 int main(void)
 {
-    GLFWwindow* window;
+    //GLFWwindow* window;
 
     // Initializing GLFW
     if (!glfwInit())
         return -1;
 
-    // Generating window with GLFW and setting context
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-    window = glfwCreateWindow(640, 480, "Test Window", NULL, NULL);
-    if (!window)
+    /*if (!window)
     {
         glfwTerminate();
         return -1;
-    }
+    }*/
 
-    glfwMakeContextCurrent(window);
+    Window window;
+    window.Init("Test Window", 640, 480);
 
     // Initializing GLEW after creating valid GL context
     glewExperimental = GL_TRUE;
@@ -72,35 +64,36 @@ int main(void)
     Camera camera(640, 480, 90.0f, 0.01f, 1000.0f);
 
     // Initialize the GLSL shader program
-    GLSLProgram shader("res/shaders/basic.shader");
+    GLSLProgram shader;
+    shader.Init("res/shaders/basic.shader");
 
     // Main loop
     double timeInitial = glfwGetTime();
-    while (!glfwWindowShouldClose(window))
+    while (!window.ShouldClose())
     {
         double timeFinal = glfwGetTime();
         float delta = timeFinal - timeInitial;
         timeInitial = glfwGetTime();
 
-        if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+        if (window.GetKey(GLFW_KEY_UP) == GLFW_PRESS)
             camera.Rotate(0.0f, delta, 0.0f);
-        if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        if (window.GetKey(GLFW_KEY_LEFT) == GLFW_PRESS)
             camera.Rotate(-delta, 0.0f, 0.0f);
-        if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        if (window.GetKey(GLFW_KEY_RIGHT) == GLFW_PRESS)
             camera.Rotate(delta, 0.0f, 0.0f);
-        if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        if (window.GetKey(GLFW_KEY_DOWN) == GLFW_PRESS)
             camera.Rotate(0.0f, -delta, 0.0f);
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        if (window.GetKey(GLFW_KEY_W) == GLFW_PRESS)
             camera.Translate(0.0f, 0.0f, delta);
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        if (window.GetKey(GLFW_KEY_S) == GLFW_PRESS)
             camera.Translate(0.0f, 0.0f, -delta);
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        if (window.GetKey(GLFW_KEY_A) == GLFW_PRESS)
             camera.Translate(-delta, 0.0f, 0.0f);
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        if (window.GetKey(GLFW_KEY_D) == GLFW_PRESS)
             camera.Translate(delta, 0.0f, 0.0f);
-        if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+        if (window.GetKey(GLFW_KEY_Q) == GLFW_PRESS)
             camera.Translate(0.0f, delta, 0.0f);
-        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+        if (window.GetKey(GLFW_KEY_E) == GLFW_PRESS)
             camera.Translate(0.0f, -delta, 0.0f);
 
         glClear(GL_COLOR_BUFFER_BIT);
@@ -108,7 +101,7 @@ int main(void)
         camera.Update(shader);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
-        glfwSwapBuffers(window);
+        window.SwapBuffers();
         glfwPollEvents();
     }
 

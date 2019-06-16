@@ -10,9 +10,9 @@ endif
 
 LIB += -lGL -lglfw -lGLEW
 
-output: GLSLProgram.o Camera.o main.o
+output: GLSLProgram.o Camera.o Window.o main.o
 	@mkdir -p ${BUILD_DIR}
-	cd ${OBJ_DIR}; g++ -Wall $(SUBSYSTEM) GLSLProgram.o Camera.o main.o -o ../${BUILD_DIR}/$(BINARY) $(LIB)
+	cd ${OBJ_DIR}; g++ -Wall $(SUBSYSTEM) GLSLProgram.o Camera.o Window.o main.o -o ../${BUILD_DIR}/$(BINARY) $(LIB)
 
 GLSLProgram.o: GLSLProgram.cpp
 	@mkdir -p ${OBJ_DIR}
@@ -21,6 +21,10 @@ GLSLProgram.o: GLSLProgram.cpp
 Camera.o: Camera.cpp
 	@mkdir -p ${OBJ_DIR}
 	cd ${OBJ_DIR}; g++ -Wall -c ../Camera.cpp ${LIB}
+
+Window.o: Window.cpp
+	@mkdir -p ${OBJ_DIR}
+	cd ${OBJ_DIR}; g++ -Wall -c ../Window.cpp ${LIB}
 
 main.o: main.cpp
 	@mkdir -p ${OBJ_DIR}

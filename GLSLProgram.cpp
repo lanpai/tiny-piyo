@@ -90,15 +90,15 @@ unsigned int CreateShader(const std::string& vertexShader, const std::string& fr
     return program;
 }
 
-GLSLProgram::GLSLProgram(const std::string& file)
-{
-    ShaderProgramSource source = ParseShader(file.c_str());
-    this->_programID = CreateShader(source.VertexSource, source.FragmentSource);
-}
-
 GLSLProgram::~GLSLProgram()
 {
     glDeleteProgram(this->_programID);
+}
+
+void GLSLProgram::Init(const std::string& file)
+{
+    ShaderProgramSource source = ParseShader(file.c_str());
+    this->_programID = CreateShader(source.VertexSource, source.FragmentSource);
 }
 
 unsigned int GLSLProgram::GetUniformLocation(const std::string& name)

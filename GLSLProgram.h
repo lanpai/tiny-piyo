@@ -26,9 +26,9 @@ unsigned int CreateShader(const std::string& vertexShader, const std::string& fr
 class GLSLProgram
 {
     public:
-        GLSLProgram(const std::string& file);
         ~GLSLProgram();
 
+        void Init(const std::string& file);
         void Use() { glUseProgram(this->_programID); };
 
         unsigned int GetUniformLocation(const std::string& name);
