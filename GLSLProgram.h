@@ -1,7 +1,8 @@
 #ifndef _GLSLPROGRAM_H
 #define _GLSLPROGRAM_H
 
-#include <GL/glew.h>
+#include "tiny-piyo.h"
+
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <string>

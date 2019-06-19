@@ -22,4 +22,13 @@ void Window::Init(const std::string& name, int width, int height, unsigned int f
     this->_window = glfwCreateWindow(width, height, name.c_str(), monitor, nullptr);
 
     glfwMakeContextCurrent(this->_window);
+
+    this->_inputManager = new InputManager;
+    this->_inputManager->Init(this->_window);
+}
+
+void Window::Destroy()
+{
+    glfwDestroyWindow(this->_window);
+    this->_inputManager->Destroy(this->_window);
 }

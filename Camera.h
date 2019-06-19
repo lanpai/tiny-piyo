@@ -8,7 +8,7 @@
 class Camera
 {
     public:
-        Camera(int width, int height, float fov, float near, float far);
+        void Init(int width, int height, float fov, float near, float far);
 
         void Update(GLSLProgram& program);
 

@@ -1,11 +1,10 @@
 #include "Camera.h"
 
-#include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <cstdio>
 
-Camera::Camera(int width, int height, float fov, float near = 0.01f, float far = 1000.0f)
+void Camera::Init(int width, int height, float fov, float near = 0.01f, float far = 1000.0f)
 {
     // Initializing camera
     this->_perspective = glm::perspective(glm::radians(fov), (float)width/(float)height, near, far);

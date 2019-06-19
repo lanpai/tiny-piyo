@@ -1,7 +1,8 @@
 #ifndef _WINDOW_H
 #define _WINDOW_H
 
-#include <GLFW/glfw3.h>
+#include "tiny-piyo.h"
+#include "Input.h"
 
 #include <string>
 
@@ -16,6 +17,7 @@ class Window
 {
     public:
         void Init(const std::string& name, int width, int height, unsigned int flags = 0);
+        void Destroy();
 
         bool ShouldClose() { return glfwWindowShouldClose(this->_window); };
         unsigned int GetKey(unsigned int key) { return glfwGetKey(this->_window, key); };
@@ -25,8 +27,11 @@ class Window
         int GetScreenHeight() { return this->_height; };
 
         void SetScreenTitle(const std::string& name) { glfwSetWindowTitle(this->_window, name.c_str()); };
+
+        InputManager* GetInputManager() { return this->_inputManager; };
     private:
         GLFWwindow* _window;
+        InputManager* _inputManager;
 
         int _width, _height;
 };

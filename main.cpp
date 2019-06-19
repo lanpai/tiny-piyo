@@ -1,110 +1,106 @@
+#include <GL/glew.h>
+
+#include "IEngine.h"
+#include "IScreen.h"
 #include "GLSLProgram.h"
 #include "Camera.h"
-#include "Window.h"
+#include "Input.h"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "cstdio"
 
-int main(void)
+class MainScreen : public IScreen
 {
-    //GLFWwindow* window;
+    protected:
+        virtual void OnInit() override;
+        virtual void OnDestroy() override;
+        virtual void OnEntry() override;
+        virtual void OnExit() override;
+        virtual void OnUpdate() override;
+        virtual void OnDraw() override;
 
-    // Initializing GLFW
-    if (!glfwInit())
-        return -1;
+    private:
+        GLSLProgram _shader;
+        Camera _camera;
+};
 
-    /*if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }*/
-
-    Window window;
-    window.Init("Test Window", 640, 480);
-
-    // Initializing GLEW after creating valid GL context
-    glewExperimental = GL_TRUE;
-    GLenum err = glewInit();
-    if (err != GLEW_OK) {
-        std::fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
-    }
-    std::printf("%s\n", glGetString(GL_VERSION));
-
-    // Initializing a vertex array object
+void MainScreen::OnInit()
+{
+    std::printf("Screen OnInit()\n");
+    
     unsigned int vao;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
-    // Initializing vertex positions
-    float positions[] = {
+    float positions[] =
+    {
         -0.5f, -0.5f,
          0.5f, -0.5f,
-         0.5f,  0.5f,
-        -0.5f,  0.5f,
+         0.5f,  0.5f
     };
 
-    // Initializing a buffer
     unsigned int buffer;
-    glGenBuffers(1, &buffer); // Generate buffer
+    glGenBuffers(1, &buffer);
 
-    // Select buffer for usage
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
 
-    // Size of positions (6 floats)
     glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
 
-    // Define position attribute for vertex
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+    this->_shader.Init("res/shaders/basic.shader");
+    this->_camera.Init(640, 480, 90.0f, 0.01f, 1000.0f);
+}
+void MainScreen::OnDestroy() { std::printf("Screen OnDestroy()\n"); }
+void MainScreen::OnEntry() { std::printf("Screen OnEntry()\n"); }
+void MainScreen::OnExit() { std::printf("Screen OnExit()\n"); }
+void MainScreen::OnUpdate()
+{
+    if (this->GetInputManager()->IsKeyPressed(GLFW_KEY_UP))
+        std::printf("UP\n");
+    this->_camera.Rotate(-0.01f, 0.0f, 0.0f);
+}
+void MainScreen::OnDraw()
+{
+    this->_camera.Update(this->_shader);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+}
 
-    // Initialize camera
-    Camera camera(640, 480, 90.0f, 0.01f, 1000.0f);
+class Engine : public IEngine
+{
+    virtual void OnPreInit() override;
+    virtual void OnPostInit() override;
+    virtual void OnUpdate() override;
+    virtual void OnPreDestroy() override;
+    virtual void OnPostDestroy() override;
+};
+void Engine::OnPreInit()
+{
+    std::printf("Engine OnPreInit()\n");
 
-    // Initialize the GLSL shader program
-    GLSLProgram shader;
-    shader.Init("res/shaders/basic.shader");
+    this->name = "i3-floating";
+}
+void Engine::OnPostInit() {
+    std::printf("Engine OnPostInit()\n");
 
-    // Main loop
-    double timeInitial = glfwGetTime();
-    while (!window.ShouldClose())
+    this->AddScreen("main", new MainScreen);
+    this->ChangeScreen("main");
+}
+void Engine::OnUpdate()
+{
+    if (window.ShouldClose())
     {
-        double timeFinal = glfwGetTime();
-        float delta = timeFinal - timeInitial;
-        timeInitial = glfwGetTime();
-
-        if (window.GetKey(GLFW_KEY_UP) == GLFW_PRESS)
-            camera.Rotate(0.0f, delta, 0.0f);
-        if (window.GetKey(GLFW_KEY_LEFT) == GLFW_PRESS)
-            camera.Rotate(-delta, 0.0f, 0.0f);
-        if (window.GetKey(GLFW_KEY_RIGHT) == GLFW_PRESS)
-            camera.Rotate(delta, 0.0f, 0.0f);
-        if (window.GetKey(GLFW_KEY_DOWN) == GLFW_PRESS)
-            camera.Rotate(0.0f, -delta, 0.0f);
-        if (window.GetKey(GLFW_KEY_W) == GLFW_PRESS)
-            camera.Translate(0.0f, 0.0f, delta);
-        if (window.GetKey(GLFW_KEY_S) == GLFW_PRESS)
-            camera.Translate(0.0f, 0.0f, -delta);
-        if (window.GetKey(GLFW_KEY_A) == GLFW_PRESS)
-            camera.Translate(-delta, 0.0f, 0.0f);
-        if (window.GetKey(GLFW_KEY_D) == GLFW_PRESS)
-            camera.Translate(delta, 0.0f, 0.0f);
-        if (window.GetKey(GLFW_KEY_Q) == GLFW_PRESS)
-            camera.Translate(0.0f, delta, 0.0f);
-        if (window.GetKey(GLFW_KEY_E) == GLFW_PRESS)
-            camera.Translate(0.0f, -delta, 0.0f);
-
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        camera.Update(shader);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        window.SwapBuffers();
-        glfwPollEvents();
+        this->Destroy();
     }
+}
+void Engine::OnPreDestroy() { std::printf("Engine OnPreDestroy()\n"); }
+void Engine::OnPostDestroy() { std::printf("Engine OnPostDestroy()\n"); }
 
-    glfwTerminate();
+int main()
+{
+    Engine engine;
+    engine.Run();
     return 0;
 }
