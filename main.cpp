@@ -58,9 +58,27 @@ void MainScreen::OnEntry() { std::printf("Screen OnEntry()\n"); }
 void MainScreen::OnExit() { std::printf("Screen OnExit()\n"); }
 void MainScreen::OnUpdate()
 {
-    if (this->GetInputManager()->IsKeyPressed(GLFW_KEY_UP))
-        std::printf("UP\n");
-    this->_camera.Rotate(-0.01f, 0.0f, 0.0f);
+    float delta = 0.02f;
+    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_UP))
+        this->_camera.Rotate(0.0f, delta, 0.0f);
+    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_LEFT))
+        this->_camera.Rotate(-delta, 0.0f, 0.0f);
+    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_DOWN))
+        this->_camera.Rotate(0.0f, -delta, 0.0f);
+    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_RIGHT))
+        this->_camera.Rotate(delta, 0.0f, 0.0f);
+    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_W))
+        this->_camera.Translate(0.0f, 0.0f, delta);
+    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_A))
+        this->_camera.Translate(-delta, 0.0f, 0.0f);
+    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_S))
+        this->_camera.Translate(0.0f, 0.0f, -delta);
+    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_D))
+        this->_camera.Translate(delta, 0.0f, 0.0f);
+    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_Q))
+        this->_camera.Translate(0.0f, delta, 0.0f);
+    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_E))
+        this->_camera.Translate(0.0f, -delta, 0.0f);
 }
 void MainScreen::OnDraw()
 {
