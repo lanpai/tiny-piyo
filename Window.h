@@ -2,9 +2,10 @@
 #define _WINDOW_H
 
 #include "tiny-piyo.h"
-#include "Input.h"
 
 #include <string>
+
+class InputManager;
 
 enum WindowFlag
 {

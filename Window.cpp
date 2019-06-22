@@ -1,5 +1,7 @@
 #include "Window.h"
 
+#include "Input.h"
+
 void Window::Init(const std::string& name, int width, int height, unsigned int flags)
 {
     GLFWmonitor* monitor = nullptr;

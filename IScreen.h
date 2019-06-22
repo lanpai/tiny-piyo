@@ -3,7 +3,8 @@
 
 #include "IEngine.h"
 #include "Window.h"
-#include "Input.h"
+
+class InputManager;
 
 class IScreen
 {

@@ -1,7 +1,8 @@
 #include "IEngine.h"
-#include "tiny-piyo.h"
 
+#include "tiny-piyo.h"
 #include "IScreen.h"
+#include "Window.h"
 
 void IEngine::Run()
 {

@@ -1,9 +1,9 @@
 #ifndef _CAMERA_H
 #define _CAMERA_H
 
-#include "GLSLProgram.h"
-
 #include <glm/mat4x4.hpp>
+
+class GLSLProgram;
 
 class Camera
 {
