@@ -5,7 +5,7 @@ OBJ_DIR=obj
 
 ifeq ($(OS),Windows_NT)
 	LIB+=-lmingw32
-	BINARY+=.exe
+	BINARY:=$(BINARY).exe
 endif
 
 LIB += -lGL -lglfw -lGLEW
