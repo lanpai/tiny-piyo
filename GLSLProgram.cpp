@@ -16,7 +16,6 @@ ShaderProgramSource ParseShader(const std::string& filepath)
     ShaderType type = ShaderType::NONE;
     while (getline(stream, line))
     {
-        std::printf(" - %s\n", line);
         // Checking for #shader keyword
         if (line.find("#shader") != std::string::npos)
         {
@@ -62,11 +61,14 @@ unsigned int CompileShader(unsigned int type, const std::string& source)
         return 0;
     }
 
+    std::printf("PIYO_VERBOSITY: %d\n", PIYO_VERBOSITY);
+    #if PIYO_VERBOSITY >= 3
     std::printf(
         "%s shader initialized as #%d\n",
         (type == GL_VERTEX_SHADER ? "Vertex" : "Fragment"),
         id
     );
+    #endif
 
     return id;
 }
