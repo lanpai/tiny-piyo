@@ -1,12 +1,10 @@
-#include <GL/glew.h>
-
 #include "IEngine.h"
 #include "IScreen.h"
 #include "GLSLProgram.h"
 #include "Camera.h"
 #include "Input.h"
 
-#include "cstdio"
+#include <cstdio>
 
 class MainScreen : public IScreen
 {

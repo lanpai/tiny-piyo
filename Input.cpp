@@ -6,6 +6,9 @@ void InputManager::Init(GLFWwindow* window)
 {
     glfwSetWindowUserPointer(window, this);
     glfwSetKeyCallback(window, sKeyCallback);
+
+    for (int i = 0; i <= 348; i++)
+        this->_keyMap[i] = KeyState::UP;
 }
 
 void InputManager::Destroy(GLFWwindow* window)
@@ -15,7 +18,7 @@ void InputManager::Destroy(GLFWwindow* window)
 
 bool InputManager::IsKeyDown(int key)
 {
-    if (this->_keyMap[key] == KeyState::DOWN || this->_keyMap[key] == KeyState::PRESS)
+    if (this->_keyMap.at(key) == KeyState::DOWN || this->_keyMap.at(key) == KeyState::PRESS)
     {
         return true;
     }
@@ -24,9 +27,9 @@ bool InputManager::IsKeyDown(int key)
 
 bool InputManager::IsKeyPressed(int key)
 {
-    if (this->_keyMap[key] == KeyState::PRESS)
+    if (this->_keyMap.at(key) == KeyState::PRESS)
     {
-        this->_keyMap[key] = KeyState::DOWN;
+        this->_keyMap.at(key) = KeyState::DOWN;
         return true;
     }
     return false;

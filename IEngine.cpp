@@ -58,7 +58,7 @@ void IEngine::ChangeScreen(const std::string& name)
 {
     if (this->_currentScreen)
         this->_currentScreen->OnExit();
-    this->_currentScreen = this->_screenMap[name.c_str()];
+    this->_currentScreen = this->_screenMap.at(name.c_str());
     this->_currentScreen->OnEntry();
 }
 

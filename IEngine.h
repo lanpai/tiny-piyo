@@ -4,8 +4,17 @@
 #include "Window.h"
 
 #include <map>
+#include <cstring>
 
 class IScreen;
+
+struct mapCmp
+{
+    bool operator()(char const*a, char const* b) const
+    {
+        return std::strcmp(a, b) < 0;
+    }
+};
 
 class IEngine
 {
@@ -31,7 +40,7 @@ class IEngine
         Window window;
     private:
         bool _isRunning = false;
-        std::map<const char*, IScreen*> _screenMap;
+        std::map<const char*, IScreen*, mapCmp> _screenMap;
         IScreen* _currentScreen = nullptr;
 
         void _Init();

@@ -6,7 +6,9 @@
 ShaderProgramSource ParseShader(const std::string& filepath)
 {
     // Initializing input file stream
-    std::ifstream stream(filepath);
+    std::ifstream stream(filepath.c_str());
+    if (!stream)
+        std::printf("Failed to open shader file \"%s\"\n", filepath.c_str());
 
     // Parsing each line from file stream
     std::string line;
@@ -14,6 +16,7 @@ ShaderProgramSource ParseShader(const std::string& filepath)
     ShaderType type = ShaderType::NONE;
     while (getline(stream, line))
     {
+        std::printf(" - %s\n", line);
         // Checking for #shader keyword
         if (line.find("#shader") != std::string::npos)
         {
@@ -98,7 +101,7 @@ GLSLProgram::~GLSLProgram()
 void GLSLProgram::Init(const std::string& file)
 {
     ShaderProgramSource source = ParseShader(file.c_str());
-    this->_programID = CreateShader(source.VertexSource, source.FragmentSource);
+    this->_programID = CreateShader(source.VertexSource.c_str(), source.FragmentSource.c_str());
 }
 
 unsigned int GLSLProgram::GetUniformLocation(const std::string& name)
