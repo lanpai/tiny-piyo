@@ -1,3 +1,4 @@
 # Ignores all build outputs
 build/
 obj/
+.vscode/
