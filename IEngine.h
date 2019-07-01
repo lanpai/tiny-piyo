@@ -24,11 +24,11 @@ class IEngine
 
         Window* GetWindow() { return &this->window; };
     protected:
-        virtual void OnPreInit() = 0;
-        virtual void OnPostInit() = 0;
-        virtual void OnUpdate() = 0;
-        virtual void OnPreDestroy() = 0;
-        virtual void OnPostDestroy() = 0;
+        virtual void OnPreInit() {};
+        virtual void OnPostInit() {};
+        virtual void OnUpdate() {};
+        virtual void OnPreDestroy() {};
+        virtual void OnPostDestroy() {};
 
         void ChangeScreen(const std::string& name);
         void AddScreen(const std::string& name, IScreen* screen);

@@ -11,14 +11,14 @@ class IScreen
     friend class IEngine;
 
     protected:
-        virtual void OnInit() = 0;
-        virtual void OnDestroy() = 0;
+        virtual void OnInit() {};
+        virtual void OnDestroy() {};
 
-        virtual void OnEntry() = 0;
-        virtual void OnExit() = 0;
+        virtual void OnEntry() {};
+        virtual void OnExit() {};
 
-        virtual void OnUpdate() = 0;
-        virtual void OnDraw() = 0;
+        virtual void OnUpdate() {};
+        virtual void OnDraw() {};
 
         void SetParentEngine(IEngine* parent) { this->engine = parent; };
 
