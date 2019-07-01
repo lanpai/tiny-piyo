@@ -17,11 +17,11 @@ output: $(OBJS_C) $(OBJS)
 	cd $(OBJ_DIR); g++ -Wall $(SUBSYSTEM) $(OBJS) $(OBJS_C) -o ../$(BUILD_DIR)/$(BINARY) $(LIB)
 
 $(OBJS_C): %.o: %.c
-	@mkdir -p $(BUILD_DIR)
+	@mkdir -p ${OBJ_DIR}
 	cd $(OBJ_DIR); g++ -w -c ../$< $(LIB)
 
 $(OBJS): %.o: %.cpp
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p ${OBJ_DIR}
 	cd $(OBJ_DIR); g++ -Wall -c ../$< $(LIB)
 
 clean:

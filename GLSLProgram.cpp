@@ -61,7 +61,6 @@ unsigned int CompileShader(unsigned int type, const std::string& source)
         return 0;
     }
 
-    std::printf("PIYO_VERBOSITY: %d\n", PIYO_VERBOSITY);
     #if PIYO_VERBOSITY >= 3
     std::printf(
         "%s shader initialized as #%d\n",
