@@ -18,13 +18,6 @@
 #   define PIYO_VERBOSITY 3
 #endif
 
-/*
-0 NONE
-1 ERRORS
-2 WARNINGS
-3 VERBOSE
-*/
-
 #define GLEW_STATIC
 
 #include "GL/glew.h"
