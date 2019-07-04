@@ -174,7 +174,7 @@ void BasicGeoShader::End()
     // Unbinding the IBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    // Clear vertex and index vectors
+    // Clearing vertex and index vectors
     this->_numIndices = this->_indices.size();
     this->_vertices.clear();
     this->_indices.clear();
