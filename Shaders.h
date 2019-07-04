@@ -2,7 +2,6 @@
 #define _TINY_PIYO_GEOMETRY_H
 
 #include "IGLSLShader.h"
-#include "IRenderable.h"
 #include "Types.h"
 
 #include <vector>
