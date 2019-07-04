@@ -34,7 +34,8 @@ void MainScreen::OnEntry() { std::printf("Screen OnEntry()\n"); }
 void MainScreen::OnExit() { std::printf("Screen OnExit()\n"); }
 void MainScreen::OnUpdate()
 {
-    float delta = 0.02f;
+    std::printf("frameTime = %f\nGetFPS() = %f\nGetDelta() = %f\n", this->engine->GetFrameTime(), this->engine->GetFrameRate(), this->engine->GetDelta());
+    float delta = this->engine->GetDelta() / 7;
     if (this->GetInputManager()->IsKeyDown(GLFW_KEY_UP))
         this->_camera.Rotate(0.0f, delta, 0.0f);
     if (this->GetInputManager()->IsKeyDown(GLFW_KEY_LEFT))
@@ -113,10 +114,6 @@ void Engine::OnPostInit() {
 }
 void Engine::OnUpdate()
 {
-    if (window.ShouldClose())
-    {
-        this->Destroy();
-    }
 }
 void Engine::OnPreDestroy() { std::printf("Engine OnPreDestroy()\n"); }
 void Engine::OnPostDestroy() { std::printf("Engine OnPostDestroy()\n"); }

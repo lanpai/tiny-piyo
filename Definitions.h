@@ -1,6 +1,8 @@
 #ifndef _TINY_PIYO_H
 #define _TINY_PIYO_H
 
+#define FRAMETIME_INTERVAL 50
+
 #define PIYO_VERBOSITY 1
 
 #ifdef PIYO_NONE

@@ -2,9 +2,11 @@
 #define _TINY_PIYO_I_ENGINE_H
 
 #include "Window.h"
+#include "Definitions.h"
 
 #include <map>
 #include <cstring>
+#include <vector>
 
 class IScreen;
 
@@ -21,6 +23,13 @@ class IEngine
     public:
         void Run();
         void Destroy();
+
+        double GetFrameTime() { return this->_frameTime; }
+        double GetFrameRate() { return (double)(1 / this->_frameTime) * 1000; }
+        void SetDesiredFrameTime(double frameTime) { this->_desiredFrameTime = frameTime; }
+        void SetDesiredFrameRate(double fps) { this->_desiredFrameTime = (double)1 / (fps * 1000); }
+        double GetDesiredFrameTime() { return this->_desiredFrameTime; }
+        double GetDelta() { return this->_desiredFrameTime / this->_frameTime; }
 
         Window* GetWindow() { return &this->window; };
     protected:
@@ -42,6 +51,10 @@ class IEngine
         bool _isRunning = false;
         std::map<const char*, IScreen*, mapCmp> _screenMap;
         IScreen* _currentScreen = nullptr;
+
+        double _frameTime;
+        double _desiredFrameTime = (double)1 / 60000; // 60 FPS
+        std::vector<double> _frameTimes;
 
         void _Init();
 };

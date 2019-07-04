@@ -15,31 +15,43 @@ void IEngine::Run()
 
     // Starting engine loop
     this->_isRunning = true;
-    //double timeInit = glfwGetTime();
-    while (this->_isRunning)
+    double timeInit = glfwGetTime();
+    while (this->_isRunning && !this->window.ShouldClose())
     {
-        //double timeFinal = glfwGetTime();
-        //double frameTime = timeFinal - timeInit;
-        //timeInit = glfwGetTime();
+        // Setting current frametime as the average of FRAMETIME_INTERVAL then resetting timings
+        double timeFinal = glfwGetTime();
+
+        this->_frameTimes.push_back(timeFinal - timeInit);
+        if (this->_frameTimes.size() > FRAMETIME_INTERVAL)
+            this->_frameTimes.erase(this->_frameTimes.begin());
+        
+        double avg = 0;
+        std::vector<double>::iterator iter;
+        for (iter = this->_frameTimes.begin(); iter != this->_frameTimes.end(); iter++)
+            avg += *iter;
+        avg /= this->_frameTimes.size();
+        this->_frameTime = avg;
+
+        timeInit = glfwGetTime();
+
+        // Polling inputs
+        glfwPollEvents();
 
         // Calling engine and screen update methods
         this->OnUpdate();
         if (this->_currentScreen)
             this->_currentScreen->OnUpdate();
 
-        // Drawing and polling inputs
-        if (this->_isRunning)
+        // Rendering by calling draw methods
+        if (this->_currentScreen)
         {
-            if (this->_currentScreen)
-            {
-                glClear(GL_COLOR_BUFFER_BIT);
-                this->_currentScreen->OnDraw();
+            glClear(GL_COLOR_BUFFER_BIT);
+            this->_currentScreen->OnDraw();
 
-                this->window.SwapBuffers();
-                glfwPollEvents();
-            }
+            this->window.SwapBuffers();
         }
     }
+    this->Destroy();
 }
 
 void IEngine::Destroy()
