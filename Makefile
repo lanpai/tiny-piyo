@@ -1,4 +1,4 @@
-BINARY = shaders
+BINARY = tiny-piyo
 OBJS = IGLSLShader.o Shaders.o Camera.o Window.o IEngine.o Input.o main.o
 OBJS_C = glew.o
 

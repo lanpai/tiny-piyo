@@ -1,7 +1,7 @@
 #ifndef _TINY_PIYO_GLSLPROGRAM_H
 #define _TINY_PIYO_GLSLPROGRAM_H
 
-#include "tiny-piyo.h"
+#include "GL/glew.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 

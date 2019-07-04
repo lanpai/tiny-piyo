@@ -1,8 +1,6 @@
 #ifndef _TINY_PIYO_MATH_H
 #define _TINY_PIYO_MATH_H
 
-#include "tiny-piyo.h"
-
 struct Vertex3D
 {
     Vertex3D() :

@@ -1,7 +1,8 @@
 #ifndef _TINY_PIYO_INPUT_H
 #define _TINY_PIYO_INPUT_H
 
-#include "tiny-piyo.h"
+#include "GL/glew.h"
+#include <GLFW/glfw3.h>
 
 #include <map>
 
