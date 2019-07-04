@@ -4,20 +4,24 @@
 
 void InputManager::Init(GLFWwindow* window)
 {
+    // Setting the key event callback
     glfwSetWindowUserPointer(window, this);
     glfwSetKeyCallback(window, sKeyCallback);
 
+    // Setting a default value for the key map
     for (int i = 0; i <= 348; i++)
         this->_keyMap[i] = KeyState::UP;
 }
 
 void InputManager::Destroy(GLFWwindow* window)
 {
+    // Unsetting the key event callback
     glfwSetKeyCallback(window, nullptr);
 }
 
 bool InputManager::IsKeyDown(int key)
 {
+    // If the key is in either a down or press state, return true
     if (this->_keyMap.at(key) == KeyState::DOWN || this->_keyMap.at(key) == KeyState::PRESS)
     {
         return true;
@@ -27,6 +31,7 @@ bool InputManager::IsKeyDown(int key)
 
 bool InputManager::IsKeyPressed(int key)
 {
+    // If the key is in a press state, return true
     if (this->_keyMap.at(key) == KeyState::PRESS)
     {
         this->_keyMap.at(key) = KeyState::DOWN;
@@ -37,6 +42,7 @@ bool InputManager::IsKeyPressed(int key)
 
 void InputManager::sKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+    // Calling the non-static key callback from this static method
     InputManager* inputManager = static_cast<InputManager*>(glfwGetWindowUserPointer(window));
     inputManager->KeyCallback(window, key, scancode, action, mods);
 }
