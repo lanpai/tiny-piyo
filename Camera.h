@@ -1,16 +1,16 @@
-#ifndef _CAMERA_H
-#define _CAMERA_H
+#ifndef _TINY_PIYO_CAMERA_H
+#define _TINY_PIYO_CAMERA_H
 
 #include <glm/mat4x4.hpp>
 
-class GLSLProgram;
+class IGLSLShader;
 
 class Camera
 {
     public:
         void Init(int width, int height, float fov, float near, float far);
 
-        void Update(GLSLProgram& program);
+        void Update(IGLSLShader& program);
 
         void SetX(float x) { this->_position.x = -1.0f * x; }
         void SetY(float y) { this->_position.y = -1.0f * y; }

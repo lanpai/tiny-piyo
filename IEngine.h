@@ -1,5 +1,5 @@
-#ifndef _I_ENGINE_H
-#define _I_ENGINE_H
+#ifndef _TINY_PIYO_I_ENGINE_H
+#define _TINY_PIYO_I_ENGINE_H
 
 #include "Window.h"
 

@@ -1,10 +1,11 @@
 #include "IEngine.h"
 #include "IScreen.h"
-#include "GLSLProgram.h"
 #include "Camera.h"
 #include "Input.h"
+#include "Shaders.h"
 
 #include <cstdio>
+#include <cstdlib>
 
 class MainScreen : public IScreen
 {
@@ -17,38 +18,15 @@ class MainScreen : public IScreen
         virtual void OnDraw() override;
 
     private:
-        GLSLProgram _shader;
+        BasicGeoShader _geoShader;
         Camera _camera;
 };
 
 void MainScreen::OnInit()
 {
     std::printf("Screen OnInit()\n");
-    
-    unsigned int vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
 
-    float positions[] =
-    {
-        -0.5f, -0.5f,
-         0.5f, -0.5f,
-         0.5f,  0.5f
-    };
-
-    unsigned int buffer;
-    glGenBuffers(1, &buffer);
-
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
-
-    glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    this->_shader.Init("res/shaders/basic.shader");
+    this->_geoShader.Init();
     this->_camera.Init(640, 480, 90.0f, 0.01f, 1000.0f);
 }
 void MainScreen::OnDestroy() { std::printf("Screen OnDestroy()\n"); }
@@ -80,8 +58,37 @@ void MainScreen::OnUpdate()
 }
 void MainScreen::OnDraw()
 {
-    this->_camera.Update(this->_shader);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    this->_camera.Update(this->_geoShader);
+    this->_geoShader.DrawTri(
+        GeoVertex3D(
+            Vertex3D(-0.5f, -0.5f,  0.0f), 
+            ColorRGBA8(0, 255, 0, 255)
+        ),
+        GeoVertex3D(
+            Vertex3D( 0.5f, -0.5f,  0.0f),
+            ColorRGBA8(0, 255, 0, 255)
+        ),
+        GeoVertex3D(
+            Vertex3D( 0.5f,  0.5f,  0.0f),
+            ColorRGBA8(0, 255, 0, 255)
+        )
+    );
+    this->_geoShader.DrawTri(
+        GeoVertex3D(
+            Vertex3D(-0.5f, -0.5f,  0.0f), 
+            ColorRGBA8(0, 255, 0, 255)
+        ),
+        GeoVertex3D(
+            Vertex3D( 0.5f,  0.5f,  0.0f),
+            ColorRGBA8(0, 255, 0, 255)
+        ),
+        GeoVertex3D(
+            Vertex3D(-0.5f,  0.5f,  0.0f),
+            ColorRGBA8(0, 255, 0, 255)
+        )
+    );
+    this->_geoShader.End();
+    this->_geoShader.Render();
 }
 
 class Engine : public IEngine
@@ -118,6 +125,8 @@ int main()
 {
     Engine engine;
     engine.Run();
+
+    system("PAUSE");
 
     return 0;
 }

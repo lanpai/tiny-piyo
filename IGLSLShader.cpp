@@ -1,4 +1,4 @@
-#include "GLSLProgram.h"
+#include "IGLSLShader.h"
 
 #include <fstream>
 #include <sstream>
@@ -94,24 +94,18 @@ unsigned int CreateShader(const std::string& vertexShader, const std::string& fr
     return program;
 }
 
-GLSLProgram::~GLSLProgram()
+IGLSLShader::~IGLSLShader()
 {
     glDeleteProgram(this->_programID);
 }
 
-void GLSLProgram::Init(const std::string& file)
-{
-    ShaderProgramSource source = ParseShader(file.c_str());
-    this->_programID = CreateShader(source.VertexSource.c_str(), source.FragmentSource.c_str());
-}
-
-unsigned int GLSLProgram::GetUniformLocation(const std::string& name)
+unsigned int IGLSLShader::GetUniformLocation(const std::string& name)
 {
     this->Use();
     return glGetUniformLocation(this->_programID, name.c_str());
 }
 
-void GLSLProgram::UniformMatrix4fv(const std::string& name, glm::mat4& matrix)
+void IGLSLShader::UniformMatrix4fv(const std::string& name, glm::mat4& matrix)
 {
     this->Use();
     unsigned int id = this->GetUniformLocation(name);

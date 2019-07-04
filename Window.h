@@ -1,5 +1,5 @@
-#ifndef _WINDOW_H
-#define _WINDOW_H
+#ifndef _TINY_PIYO_WINDOW_H
+#define _TINY_PIYO_WINDOW_H
 
 #include "tiny-piyo.h"
 

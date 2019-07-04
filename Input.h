@@ -1,5 +1,5 @@
-#ifndef _INPUT_H
-#define _INPUT_H
+#ifndef _TINY_PIYO_INPUT_H
+#define _TINY_PIYO_INPUT_H
 
 #include "tiny-piyo.h"
 

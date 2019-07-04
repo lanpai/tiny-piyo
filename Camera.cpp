@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-#include "GLSLProgram.h"
+#include "IGLSLShader.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -14,7 +14,7 @@ void Camera::Init(int width, int height, float fov, float near = 0.01f, float fa
     this->_rotation = glm::vec3(0.0f);
 };
 
-void Camera::Update(GLSLProgram& program)
+void Camera::Update(IGLSLShader& program)
 {
     // Initializing forward vector
     glm::vec3 forward = glm::vec3(

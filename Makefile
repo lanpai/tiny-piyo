@@ -1,5 +1,5 @@
 BINARY = shaders
-OBJS = GLSLProgram.o Camera.o Window.o IEngine.o Input.o main.o
+OBJS = IGLSLShader.o Shaders.o Camera.o Window.o IEngine.o Input.o main.o
 OBJS_C = glew.o
 
 BUILD_DIR = build

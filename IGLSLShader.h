@@ -1,5 +1,5 @@
-#ifndef _GLSLPROGRAM_H
-#define _GLSLPROGRAM_H
+#ifndef _TINY_PIYO_GLSLPROGRAM_H
+#define _TINY_PIYO_GLSLPROGRAM_H
 
 #include "tiny-piyo.h"
 
@@ -24,19 +24,19 @@ ShaderProgramSource ParseShader(const std::string& filepath);
 unsigned int CompileShader(unsigned int type, const std::string& source);
 unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
 
-class GLSLProgram
+class IGLSLShader
 {
     public:
-        ~GLSLProgram();
+        ~IGLSLShader();
 
-        void Init(const std::string& file);
         void Use() { glUseProgram(this->_programID); };
+        void Unuse() { glUseProgram(0); };
 
         unsigned int GetUniformLocation(const std::string& name);
 
         void UniformMatrix4fv(const std::string& name, glm::mat4& matrix);
 
-    private:
+    protected:
         unsigned int _programID;
 };
 

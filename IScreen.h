@@ -1,5 +1,5 @@
-#ifndef _I_SCREEN_H
-#define _I_SCREEN_H
+#ifndef _TINY_PIYO_I_SCREEN_H
+#define _TINY_PIYO_I_SCREEN_H
 
 #include "IEngine.h"
 #include "Window.h"
