@@ -66,11 +66,11 @@ void MainScreen::OnDraw()
         ),
         GeoVertex3D(
             Vertex3D( 0.5f, -0.5f,  0.0f),
-            ColorRGBA8(0, 255, 0, 255)
+            ColorRGBA8(255, 0, 0, 255)
         ),
         GeoVertex3D(
             Vertex3D( 0.5f,  0.5f,  0.0f),
-            ColorRGBA8(0, 255, 0, 255)
+            ColorRGBA8(0, 0, 255, 255)
         )
     );
     this->_geoShader.DrawTri(
@@ -80,11 +80,11 @@ void MainScreen::OnDraw()
         ),
         GeoVertex3D(
             Vertex3D( 0.5f,  0.5f,  0.0f),
-            ColorRGBA8(0, 255, 0, 255)
+            ColorRGBA8(0, 0, 255, 255)
         ),
         GeoVertex3D(
             Vertex3D(-0.5f,  0.5f,  0.0f),
-            ColorRGBA8(0, 255, 0, 255)
+            ColorRGBA8(255, 0, 0, 255)
         )
     );
     this->_geoShader.End();
