@@ -27,8 +27,8 @@ class InputManager
         bool IsKeyDown(int key);
         bool IsKeyPressed(int key);
 
-        void LockMouse() { glfwSetInputMode(this->_window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED); }
-        void UnlockMouse() { glfwSetInputMode(this->_window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL); }
+        void LockMouse();
+        void UnlockMouse();
 
         float2 GetCursorPos() { return float2(this->_x, this->_y); }
 

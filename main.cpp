@@ -6,6 +6,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <cmath>
 
 class MainScreen : public IScreen
 {
@@ -20,6 +21,7 @@ class MainScreen : public IScreen
     private:
         BasicGeoShader _geoShader;
         Camera _camera;
+        float2 _prevCursorPos;
 };
 
 void MainScreen::OnInit()
@@ -41,16 +43,19 @@ void MainScreen::OnExit() { std::printf("Screen OnExit()\n"); }
 void MainScreen::OnUpdate()
 {
     float2 cursorPos = this->GetInputManager()->GetCursorPos();
-    std::printf("cursor position = (%f, %f)\n", cursorPos.x, cursorPos.y);
+    this->_camera.Rotate(((cursorPos - this->_prevCursorPos) / 200.0f).x, -((cursorPos - this->_prevCursorPos) / 200.0f).y, 0.0f);
+    this->_prevCursorPos = cursorPos;
+
+    if (this->GetInputManager()->IsKeyPressed(GLFW_KEY_R))
+        this->_camera.SetRotation(0.0f, 0.0f, 0.0f);
+
+    this->_camera.SetRotation(
+        this->_camera.GetRotation().x,
+        std::fmin(std::fmax(this->_camera.GetRotation().y, -PI / 2.0f), PI / 2.0f),
+        this->_camera.GetRotation().z
+    );
+
     float delta = this->engine->GetDelta() / 7;
-    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_UP))
-        this->_camera.Rotate(0.0f, delta, 0.0f);
-    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_LEFT))
-        this->_camera.Rotate(-delta, 0.0f, 0.0f);
-    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_DOWN))
-        this->_camera.Rotate(0.0f, -delta, 0.0f);
-    if (this->GetInputManager()->IsKeyDown(GLFW_KEY_RIGHT))
-        this->_camera.Rotate(delta, 0.0f, 0.0f);
     if (this->GetInputManager()->IsKeyDown(GLFW_KEY_W))
         this->_camera.Translate(0.0f, 0.0f, delta);
     if (this->GetInputManager()->IsKeyDown(GLFW_KEY_A))

@@ -43,6 +43,20 @@ bool InputManager::IsKeyPressed(int key)
     return false;
 }
 
+void InputManager::LockMouse()
+{
+    glfwSetInputMode(this->_window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    if (glfwRawMouseMotionSupported())
+        glfwSetInputMode(this->_window->GetWindow(), GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+}
+
+void InputManager::UnlockMouse()
+{
+    glfwSetInputMode(this->_window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    if (glfwRawMouseMotionSupported())
+        glfwSetInputMode(this->_window->GetWindow(), GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+}
+
 void InputManager::sKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     // Calling the non-static key callback from this static method

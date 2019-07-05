@@ -12,8 +12,15 @@ class Camera
 
         void Update(IGLSLShader& program);
 
-        void SetX(float x) { this->_position.x = -1.0f * x; }
-        void SetY(float y) { this->_position.y = -1.0f * y; }
+        void SetPosX(float x) { this->_position.x = -x; }
+        void SetPosY(float y) { this->_position.y = -y; }
+        void SetPosZ(float z) { this->_position.z = -z; }
+
+        const glm::vec3& GetRotation() { return this->_rotation; }
+        const glm::vec3& GetPosition() { return this->_position; }
+
+        void SetRotation(float x, float y, float z) { this->_rotation = glm::vec3(x, y, z); }
+        void SetPosition(float x, float y, float z) { this->_position = glm::vec3(-x, -y, -z); }
 
         void Translate(float x, float y, float z) {this->_position += glm::vec3(x, y, z); };
         void Rotate(float x, float y, float z) { this->_rotation += glm::vec3(x, y, z); };
