@@ -20,8 +20,8 @@ class BasicGeoShader : public IGLSLShader
 
         void Render();
 
-        void DrawTri(GeoVertex3D a, GeoVertex3D b, GeoVertex3D c);
-        void DrawQuad(GeoVertex3D a, GeoVertex3D b, GeoVertex3D c, GeoVertex3D d);
+        void DrawTri(Vertex3D a, Vertex3D b, Vertex3D c);
+        void DrawQuad(Vertex3D a, Vertex3D b, Vertex3D c, Vertex3D d);
 
     private:
         unsigned int _vaoID;
@@ -29,7 +29,7 @@ class BasicGeoShader : public IGLSLShader
         unsigned int _iboID;
 
         int _numIndices;
-        std::vector<GeoVertex3D> _vertices;
+        std::vector<Vertex3D> _vertices;
         std::vector<unsigned int> _indices;
 };
 

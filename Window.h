@@ -30,6 +30,8 @@ class Window
 
         void SetScreenTitle(const std::string& name) { glfwSetWindowTitle(this->_window, name.c_str()); };
 
+        GLFWwindow* GetWindow() { return this->_window; }
+
         InputManager* GetInputManager() { return this->_inputManager; };
     private:
         GLFWwindow* _window;

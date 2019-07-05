@@ -142,11 +142,11 @@ void BasicGeoShader::Init()
     glBindBuffer(GL_ARRAY_BUFFER, this->_vboID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->_iboID);
 
-    // Pointing the VAO to the correct location in the given GeoVertex3D object
+    // Pointing the VAO to the correct location in the given Vertex3D object
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GeoVertex3D), (void*)offsetof(GeoVertex3D, position));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3D), (void*)offsetof(Vertex3D, position));
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(GeoVertex3D), (void*)offsetof(GeoVertex3D, color));
+    glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex3D), (void*)offsetof(Vertex3D, color));
 
     // Unbinding the VAO
     glBindVertexArray(this->_vaoID);
@@ -168,8 +168,8 @@ void BasicGeoShader::End()
     glBindBuffer(GL_ARRAY_BUFFER, this->_vboID);
 
     // Uploading vertex data to the VBO
-    glBufferData(GL_ARRAY_BUFFER, this->_vertices.size() * sizeof(GeoVertex3D), nullptr, GL_DYNAMIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, this->_vertices.size() * sizeof(GeoVertex3D), this->_vertices.data());
+    glBufferData(GL_ARRAY_BUFFER, this->_vertices.size() * sizeof(Vertex3D), nullptr, GL_DYNAMIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, this->_vertices.size() * sizeof(Vertex3D), this->_vertices.data());
     
     // Unbinding the VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -204,7 +204,7 @@ void BasicGeoShader::Render()
     this->Unuse();
 }
 
-void BasicGeoShader::DrawTri(GeoVertex3D a, GeoVertex3D b, GeoVertex3D c)
+void BasicGeoShader::DrawTri(Vertex3D a, Vertex3D b, Vertex3D c)
 {
     int firstIndex = this->_vertices.size();
 
@@ -221,7 +221,7 @@ void BasicGeoShader::DrawTri(GeoVertex3D a, GeoVertex3D b, GeoVertex3D c)
     this->_indices.push_back(firstIndex + 2);
 }
 
-void BasicGeoShader::DrawQuad(GeoVertex3D a, GeoVertex3D b, GeoVertex3D c, GeoVertex3D d)
+void BasicGeoShader::DrawQuad(Vertex3D a, Vertex3D b, Vertex3D c, Vertex3D d)
 {
     int firstIndex = this->_vertices.size();
 

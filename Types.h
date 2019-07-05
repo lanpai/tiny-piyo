@@ -1,22 +1,23 @@
 #ifndef _TINY_PIYO_MATH_H
 #define _TINY_PIYO_MATH_H
 
-struct Vertex3D
+struct float3
 {
-    Vertex3D() :
+    float3() :
         x(0), y(0), z(0) {}
-    Vertex3D(float X, float Y, float Z) :
+    float3(float X, float Y, float Z) :
         x(X), y(Y), z(Z) {}
+
     float x;
     float y;
     float z;
 };
 
-struct Vertex2D
+struct float2
 {
-    Vertex2D() :
+    float2() :
         x(0), y(0) {}
-    Vertex2D(float X, float Y) :
+    float2(float X, float Y) :
         x(X), y(Y) {}
 
     float x;
@@ -36,27 +37,27 @@ struct ColorRGBA8
     unsigned char a;
 };
 
-struct GeoVertex3D
+struct Vertex3D
 {
-    GeoVertex3D() :
-        position(Vertex3D()), color(ColorRGBA8()) {}
-    GeoVertex3D(const Vertex3D& Position, const ColorRGBA8& Color) :
+    Vertex3D() :
+        position(float3()), color(ColorRGBA8()) {}
+    Vertex3D(const float3& Position, const ColorRGBA8& Color) :
         position(Position), color(Color) {}
 
-    Vertex3D position;
+    float3 position;
     ColorRGBA8 color;
 };
 
 struct SampVertex3D
 {
     SampVertex3D() :
-        position(Vertex3D()), color(ColorRGBA8()), uv(Vertex2D()) {}
-    SampVertex3D(const Vertex3D& Position, const ColorRGBA8& Color, const Vertex2D& UV) :
+        position(float3()), color(ColorRGBA8()), uv(float2()) {}
+    SampVertex3D(const float3& Position, const ColorRGBA8& Color, const float2& UV) :
         position(Position), color(Color), uv(UV) {}
 
-    Vertex3D position;
+    float3 position;
     ColorRGBA8 color;
-    Vertex2D uv;
+    float2 uv;
 };
 
 #endif

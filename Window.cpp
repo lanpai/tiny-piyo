@@ -33,12 +33,12 @@ void Window::Init(const std::string& name, int width, int height, unsigned int f
 
     // Creating an input manager using the new window
     this->_inputManager = new InputManager;
-    this->_inputManager->Init(this->_window);
+    this->_inputManager->Init(this);
 }
 
 void Window::Destroy()
 {
     // Garbage collecting window and input manager
+    this->_inputManager->Destroy();
     glfwDestroyWindow(this->_window);
-    this->_inputManager->Destroy(this->_window);
 }
