@@ -10,6 +10,7 @@ LIB = -lGL -lglfw -lGLEW
 ifeq ($(OS),Windows_NT)
 	LIB = -lopengl32 -lglfw3 -lgdi32
 	BINARY := $(BINARY).exe
+	RUN_PREFIX = start
 endif
 
 output: $(OBJS_C) $(OBJS)
@@ -23,6 +24,10 @@ $(OBJS_C): %.o: %.c
 $(OBJS): %.o: %.cpp
 	@mkdir -p ${OBJ_DIR}
 	cd $(OBJ_DIR); g++ -Wall -std=c++11 -c ../$< $(LIB)
+
+run:
+	$(RUN_PREFIX) $(BUILD_DIR)/$(BINARY)
+	
 
 clean:
 	rm -rf $(OBJ_DIR) $(BUILD_DIR)
