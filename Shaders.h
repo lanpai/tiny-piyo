@@ -19,6 +19,7 @@ class BasicGeoShader : public IGLSLShader
         void Render();
 
         void DrawTri(GeoVertex3D a, GeoVertex3D b, GeoVertex3D c);
+        void DrawQuad(GeoVertex3D a, GeoVertex3D b, GeoVertex3D c, GeoVertex3D d);
 
     private:
         unsigned int _vaoID;

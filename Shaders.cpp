@@ -196,6 +196,8 @@ void BasicGeoShader::Render()
 
 void BasicGeoShader::DrawTri(GeoVertex3D a, GeoVertex3D b, GeoVertex3D c)
 {
+    int firstIndex = this->_vertices.size();
+
     // Pushing vertices into vector
     this->_vertices.reserve(this->_vertices.size() + 3);
     this->_vertices.push_back(a);
@@ -203,9 +205,29 @@ void BasicGeoShader::DrawTri(GeoVertex3D a, GeoVertex3D b, GeoVertex3D c)
     this->_vertices.push_back(c);
 
     // Pushing corresponding indices into vector
-    int firstIndex = this->_indices.size();
     this->_indices.reserve(this->_indices.size() + 3);
     this->_indices.push_back(firstIndex);
     this->_indices.push_back(firstIndex + 1);
     this->_indices.push_back(firstIndex + 2);
+}
+
+void BasicGeoShader::DrawQuad(GeoVertex3D a, GeoVertex3D b, GeoVertex3D c, GeoVertex3D d)
+{
+    int firstIndex = this->_vertices.size();
+
+    // Pushing vertices into vector
+    this->_vertices.reserve(this->_vertices.size() + 4);
+    this->_vertices.push_back(a);
+    this->_vertices.push_back(b);
+    this->_vertices.push_back(c);
+    this->_vertices.push_back(d);
+
+    // Pushing corresponding indices into vector
+    this->_indices.reserve(this->_indices.size() + 4);
+    this->_indices.push_back(firstIndex);
+    this->_indices.push_back(firstIndex + 1);
+    this->_indices.push_back(firstIndex + 2);
+    this->_indices.push_back(firstIndex);
+    this->_indices.push_back(firstIndex + 2);
+    this->_indices.push_back(firstIndex + 3);
 }

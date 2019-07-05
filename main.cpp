@@ -87,6 +87,24 @@ void MainScreen::OnDraw()
             ColorRGBA8(255, 0, 0, 255)
         )
     );
+    this->_geoShader.DrawQuad(
+        GeoVertex3D(
+            Vertex3D(-1.0f,  1.0f, 5.0f),
+            ColorRGBA8(0, 255, 0, 255)
+        ),
+        GeoVertex3D(
+            Vertex3D( 1.0f,  1.0f, 5.0f),
+            ColorRGBA8(0, 255, 0, 255)
+        ),
+        GeoVertex3D(
+            Vertex3D( 1.0f, -1.0f, 5.0f),
+            ColorRGBA8(0, 255, 0, 255)
+        ),
+        GeoVertex3D(
+            Vertex3D(-1.0f, -1.0f, 5.0f),
+            ColorRGBA8(0, 255, 0, 255)
+        )
+    );
     this->_geoShader.End();
     this->_geoShader.Render();
 }

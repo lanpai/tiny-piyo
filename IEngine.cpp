@@ -61,7 +61,7 @@ void IEngine::Run()
             // Rendering by calling draw methods
             if (this->_currentScreen)
             {
-                glClear(GL_COLOR_BUFFER_BIT);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 this->_currentScreen->OnDraw();
 
                 this->window.SwapBuffers();
@@ -127,4 +127,7 @@ void IEngine::_Init()
     if (err != GLEW_OK)
         std::fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
     std::printf("%s\n", glGetString(GL_VERSION));
+
+    // Enable depth testing
+    glEnable(GL_DEPTH_TEST);
 }
