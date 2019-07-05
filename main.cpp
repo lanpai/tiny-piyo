@@ -29,7 +29,11 @@ void MainScreen::OnInit()
     this->_geoShader.Init();
     this->_camera.Init(640, 480, 90.0f, 0.01f, 1000.0f);
 }
-void MainScreen::OnDestroy() { std::printf("Screen OnDestroy()\n"); }
+void MainScreen::OnDestroy()
+{
+    std::printf("Screen OnDestroy()\n");
+    this->_geoShader.Destroy();
+}
 void MainScreen::OnEntry() { std::printf("Screen OnEntry()\n"); }
 void MainScreen::OnExit() { std::printf("Screen OnExit()\n"); }
 void MainScreen::OnUpdate()

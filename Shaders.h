@@ -14,6 +14,8 @@ class BasicGeoShader : public IGLSLShader
 {
     public:
         void Init();
+        void Destroy();
+        
         void End();
 
         void Render();

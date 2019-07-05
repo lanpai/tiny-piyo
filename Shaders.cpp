@@ -152,6 +152,16 @@ void BasicGeoShader::Init()
     glBindVertexArray(this->_vaoID);
 }
 
+void BasicGeoShader::Destroy()
+{
+    if (this->_vaoID)
+        glDeleteVertexArrays(1, &this->_vaoID);
+    if (this->_vboID)
+        glDeleteBuffers(1, &this->_vboID);
+    if (this->_iboID)
+        glDeleteBuffers(1, &this->_iboID);
+}
+
 void BasicGeoShader::End()
 {
     // Binding the VBO
