@@ -34,7 +34,6 @@ void MainScreen::OnEntry() { std::printf("Screen OnEntry()\n"); }
 void MainScreen::OnExit() { std::printf("Screen OnExit()\n"); }
 void MainScreen::OnUpdate()
 {
-    std::printf("frameTime = %f\nGetFPS() = %f\nGetDelta() = %f\n", this->engine->GetFrameTime(), this->engine->GetFrameRate(), this->engine->GetDelta());
     float delta = this->engine->GetDelta() / 7;
     if (this->GetInputManager()->IsKeyDown(GLFW_KEY_UP))
         this->_camera.Rotate(0.0f, delta, 0.0f);
@@ -96,7 +95,6 @@ class Engine : public IEngine
 {
     virtual void OnPreInit() override;
     virtual void OnPostInit() override;
-    virtual void OnUpdate() override;
     virtual void OnPreDestroy() override;
     virtual void OnPostDestroy() override;
 };
@@ -111,9 +109,6 @@ void Engine::OnPostInit() {
 
     this->AddScreen("main", new MainScreen);
     this->ChangeScreen("main");
-}
-void Engine::OnUpdate()
-{
 }
 void Engine::OnPreDestroy() { std::printf("Engine OnPreDestroy()\n"); }
 void Engine::OnPostDestroy() { std::printf("Engine OnPostDestroy()\n"); }

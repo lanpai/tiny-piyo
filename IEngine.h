@@ -25,17 +25,18 @@ class IEngine
         void Destroy();
 
         double GetFrameTime() { return this->_frameTime; }
-        double GetFrameRate() { return (double)(1 / this->_frameTime) * 1000; }
+        double GetFrameRate() { return (double)1 / this->_frameTime; }
         void SetDesiredFrameTime(double frameTime) { this->_desiredFrameTime = frameTime; }
-        void SetDesiredFrameRate(double fps) { this->_desiredFrameTime = (double)1 / (fps * 1000); }
+        void SetDesiredFrameRate(double fps) { this->_desiredFrameTime = (double)1 / fps; }
         double GetDesiredFrameTime() { return this->_desiredFrameTime; }
-        double GetDelta() { return this->_desiredFrameTime / this->_frameTime; }
+        double GetDelta() { return this->_frameTime / this->_desiredFrameTime; }
 
         Window* GetWindow() { return &this->window; };
     protected:
         virtual void OnPreInit() {};
         virtual void OnPostInit() {};
         virtual void OnUpdate() {};
+        virtual void OnUpdateStep() {};
         virtual void OnPreDestroy() {};
         virtual void OnPostDestroy() {};
 
@@ -53,7 +54,7 @@ class IEngine
         IScreen* _currentScreen = nullptr;
 
         double _frameTime;
-        double _desiredFrameTime = (double)1 / 60000; // 60 FPS
+        double _desiredFrameTime = (double)1 / 60; // 60 FPS
         std::vector<double> _frameTimes;
 
         void _Init();

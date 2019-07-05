@@ -18,6 +18,7 @@ class IScreen
         virtual void OnExit() {};
 
         virtual void OnUpdate() {};
+        virtual void OnUpdateStep() {};
         virtual void OnDraw() {};
 
         void SetParentEngine(IEngine* parent) { this->engine = parent; };

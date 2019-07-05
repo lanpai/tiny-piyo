@@ -18,37 +18,54 @@ void IEngine::Run()
     double timeInit = glfwGetTime();
     while (this->_isRunning && !this->window.ShouldClose())
     {
-        // Setting current frametime as the average of FRAMETIME_INTERVAL then resetting timings
         double timeFinal = glfwGetTime();
 
-        this->_frameTimes.push_back(timeFinal - timeInit);
-        if (this->_frameTimes.size() > FRAMETIME_INTERVAL)
-            this->_frameTimes.erase(this->_frameTimes.begin());
-        
-        double avg = 0;
-        std::vector<double>::iterator iter;
-        for (iter = this->_frameTimes.begin(); iter != this->_frameTimes.end(); iter++)
-            avg += *iter;
-        avg /= this->_frameTimes.size();
-        this->_frameTime = avg;
-
-        timeInit = glfwGetTime();
-
-        // Polling inputs
-        glfwPollEvents();
-
-        // Calling engine and screen update methods
-        this->OnUpdate();
-        if (this->_currentScreen)
-            this->_currentScreen->OnUpdate();
-
-        // Rendering by calling draw methods
-        if (this->_currentScreen)
+        // Capping game loop speed
+        if ((timeFinal - timeInit) >= this->_desiredFrameTime)
         {
-            glClear(GL_COLOR_BUFFER_BIT);
-            this->_currentScreen->OnDraw();
+            // Setting current frametime as the average of FRAMETIME_INTERVAL
+            this->_frameTimes.push_back(timeFinal - timeInit);
+            if (this->_frameTimes.size() > FRAMETIME_INTERVAL)
+                this->_frameTimes.erase(this->_frameTimes.begin());
+            
+            double avg = 0;
+            std::vector<double>::iterator iter;
+            for (iter = this->_frameTimes.begin(); iter != this->_frameTimes.end(); iter++)
+                avg += *iter;
+            avg /= this->_frameTimes.size();
+            this->_frameTime = avg;
 
-            this->window.SwapBuffers();
+            // Resetting timer
+            timeInit = glfwGetTime();
+
+            // Polling inputs
+            glfwPollEvents();
+
+            // Calling engine and screen update methods
+            this->OnUpdate();
+            if (this->_currentScreen)
+                this->_currentScreen->OnUpdate();
+
+            // Calling separate update steps for step consistency
+            double timeLeft = this->_frameTime;
+            int iterations = 0;
+            while (timeLeft >= this->_desiredFrameTime && iterations <= MAX_UPDATE_STEPS)
+            {
+                this->OnUpdateStep();
+                if (this->_currentScreen)
+                    this->_currentScreen->OnUpdateStep();
+                timeLeft -= this->_desiredFrameTime;
+                iterations++;
+            }
+
+            // Rendering by calling draw methods
+            if (this->_currentScreen)
+            {
+                glClear(GL_COLOR_BUFFER_BIT);
+                this->_currentScreen->OnDraw();
+
+                this->window.SwapBuffers();
+            }
         }
     }
     this->Destroy();
