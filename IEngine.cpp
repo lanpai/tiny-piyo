@@ -130,4 +130,7 @@ void IEngine::_Init()
 
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
+
+    // Enable face culling
+    glEnable(GL_CULL_FACE);
 }
