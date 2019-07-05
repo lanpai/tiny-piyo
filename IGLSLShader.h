@@ -30,7 +30,10 @@ class IGLSLShader
 
         unsigned int GetUniformLocation(const std::string& name);
 
-        void UniformMatrix4fv(const std::string& name, glm::mat4& matrix);
+        void UniformMatrix4fv(const std::string& name, glm::mat4& value);
+        void UniformBool(const std::string& name, bool value);
+        void UniformInt(const std::string& name, int value);
+        void UniformFloat(const std::string& name, float value);
 
     protected:
         unsigned int _programID;
