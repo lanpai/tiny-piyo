@@ -138,24 +138,24 @@ struct ColorRGBA8
 
 struct Vertex3D
 {
-    Vertex3D() :
-        position(float3()), color(ColorRGBA8()) {}
-    Vertex3D(const float3& Position, const ColorRGBA8& Color) :
-        position(Position), color(Color) {}
+    Vertex3D(
+        const float3& Position = float3(),
+        const ColorRGBA8& Color = ColorRGBA8(),
+        const float3& Normal = float3(),
+        const float2& UV = float2()
+    ) :
+        position(Position), color(Color), normal(Normal), uv(UV) {}
+    Vertex3D(
+        const float3& Position = float3(),
+        const float3& Normal = float3(),
+        const float2& UV = float2(),
+        const ColorRGBA8& Color = ColorRGBA8()
+    ) :
+        position(Position), color(Color), normal(Normal), uv(UV) {}
 
     float3 position;
     ColorRGBA8 color;
-};
-
-struct SampVertex3D
-{
-    SampVertex3D() :
-        position(float3()), color(ColorRGBA8()), uv(float2()) {}
-    SampVertex3D(const float3& Position, const ColorRGBA8& Color, const float2& UV) :
-        position(Position), color(Color), uv(UV) {}
-
-    float3 position;
-    ColorRGBA8 color;
+    float3 normal;
     float2 uv;
 };
 

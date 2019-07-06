@@ -1,4 +1,6 @@
 # Ignores all build outputs
-build/
-obj/
-.vscode/
+/build/
+/obj/
+
+# Ignores local Visual Studio Code files
+/.vscode/

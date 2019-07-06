@@ -147,6 +147,10 @@ void BasicGeoShader::Init()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3D), (void*)offsetof(Vertex3D, position));
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex3D), (void*)offsetof(Vertex3D, color));
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3D), (void*)offsetof(Vertex3D, normal));
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex3D), (void*)offsetof(Vertex3D, uv));
 
     // Unbinding the VAO
     glBindVertexArray(this->_vaoID);
@@ -160,6 +164,8 @@ void BasicGeoShader::Destroy()
         glDeleteBuffers(1, &this->_vboID);
     if (this->_iboID)
         glDeleteBuffers(1, &this->_iboID);
+
+    glDeleteProgram(this->_programID);
 }
 
 void BasicGeoShader::End()
@@ -240,4 +246,17 @@ void BasicGeoShader::DrawQuad(Vertex3D a, Vertex3D b, Vertex3D c, Vertex3D d)
     this->_indices.push_back(firstIndex);
     this->_indices.push_back(firstIndex + 2);
     this->_indices.push_back(firstIndex + 3);
+}
+
+void BasicGeoShader::DrawMesh(const Mesh& mesh)
+{
+    int firstIndex = this->_vertices.size();
+
+    // Pushing vertices into vector
+    for (size_t i = 0; i < mesh.vertices.size(); i++)
+        this->_vertices.push_back(mesh.vertices[i]);
+
+    // Pushing corresponding indices into vector
+    for (size_t i = 0; i < mesh.indices.size(); i++)
+        this->_indices.push_back(firstIndex + mesh.indices[i]);
 }

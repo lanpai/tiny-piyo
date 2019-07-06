@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "Input.h"
 #include "Shaders.h"
+#include "Mesh.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -22,6 +23,7 @@ class MainScreen : public IScreen
         BasicGeoShader _geoShader;
         Camera _camera;
         float2 _prevCursorPos;
+        Mesh _cylinder;
 };
 
 void MainScreen::OnInit()
@@ -32,6 +34,8 @@ void MainScreen::OnInit()
     this->_camera.Init(640, 480, 90.0f, 0.01f, 1000.0f);
 
     this->GetInputManager()->LockMouse();
+
+    this->_cylinder = ParseOBJ("res/obj/cylinder.obj");
 }
 void MainScreen::OnDestroy()
 {
@@ -72,7 +76,8 @@ void MainScreen::OnUpdate()
 void MainScreen::OnDraw()
 {
     this->_camera.Update(this->_geoShader);
-    this->_geoShader.DrawTri(
+    this->_geoShader.DrawMesh(this->_cylinder);
+    /*this->_geoShader.DrawTri(
         Vertex3D(
             float3(-0.5f, -0.5f,  0.0f), 
             ColorRGBA8(0, 255, 0, 255)
@@ -117,7 +122,7 @@ void MainScreen::OnDraw()
             float3(-1.0f, -1.0f, 5.0f),
             ColorRGBA8(0, 255, 0, 255)
         )
-    );
+    );*/
     this->_geoShader.End();
     this->_geoShader.Render();
 }

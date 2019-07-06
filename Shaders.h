@@ -3,6 +3,7 @@
 
 #include "IGLSLShader.h"
 #include "Types.h"
+#include "Mesh.h"
 
 #include <vector>
 
@@ -22,6 +23,7 @@ class BasicGeoShader : public IGLSLShader
 
         void DrawTri(Vertex3D a, Vertex3D b, Vertex3D c);
         void DrawQuad(Vertex3D a, Vertex3D b, Vertex3D c, Vertex3D d);
+        void DrawMesh(const Mesh& mesh);
 
     private:
         unsigned int _vaoID;

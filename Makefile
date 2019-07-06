@@ -1,5 +1,5 @@
 BINARY = tiny-piyo
-OBJS = IGLSLShader.o Shaders.o Camera.o Window.o IEngine.o Input.o main.o
+OBJS = IGLSLShader.o Mesh.o Shaders.o Camera.o Window.o IEngine.o Input.o main.o
 OBJS_C = glew.o
 
 BUILD_DIR = build
