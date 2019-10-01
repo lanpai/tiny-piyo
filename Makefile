@@ -27,7 +27,6 @@ $(OBJS): %.o: %.cpp
 
 run:
 	$(RUN_PREFIX) $(BUILD_DIR)/$(BINARY)
-	
 
 clean:
 	rm -rf $(OBJ_DIR) $(BUILD_DIR)
