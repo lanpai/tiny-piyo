@@ -20,12 +20,6 @@ OBJ_DIR = obj
 
 LIB = -lGL -lglfw -lGLEW
 
-ifeq ($(OS),Windows_NT)
-	LIB = -lopengl32 -lglfw3 -lgdi32
-	BINARY := $(BINARY).exe
-	RUN_PREFIX = start
-endif
-
 output: $(OBJS_C) $(OBJS)
 	@mkdir -p $(BUILD_DIR)
 	cd $(OBJ_DIR); $(AR) rcs ../$(BUILD_DIR)/$(BINARY) $(OBJS_C) $(OBJS)
