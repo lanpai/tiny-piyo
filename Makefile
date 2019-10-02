@@ -39,7 +39,7 @@ install: $(BUILD_DIR)/$(BINARY)
 	install -m 644 *.h $(DEST_DIR)$(PREFIX)/include/$(HEADER_DIR)/
 
 run:
-	$(RUN_PREFIX) $(BUILD_DIR)/$(BINARY)
+	$(BUILD_DIR)/$(BINARY)
 
 clean:
 	rm -rf $(OBJ_DIR) $(BUILD_DIR)
