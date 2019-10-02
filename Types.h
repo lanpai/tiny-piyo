@@ -87,6 +87,12 @@ struct ColorHSVA8
     float a;
 };
 
+#define ColorRGBA8_BLACK    ColorRGBA8(255, 255, 255, 255)
+#define ColorRGBA8_WHITE    ColorRGBA8(  0,   0,   0, 255)
+#define ColorRGBA8_RED      ColorRGBA8(255,   0,   0, 255)
+#define ColorRGBA8_GREEN    ColorRGBA8(  0, 255,   0, 255)
+#define ColorRGBA8_BLUE     ColorRGBA8(  0,   0, 255, 255)
+
 struct ColorRGBA8
 {
     ColorRGBA8() :
@@ -107,15 +113,15 @@ struct ColorRGBA8
 
         float delta = Cmax - Cmin;
 
-        int H;
-        if (delta == 0)
-            H = 0;
-        else if (Cmax == Rprime)
-            H = 60 * std::fmod(((Gprime - Bprime) / delta), 6);
-        else if (Cmax == Gprime)
-            H = 60 * (((Bprime - Rprime) / delta) + 2);
-        else if (Cmax == Bprime)
-            H = 60 * (((Rprime - Gprime) / delta) + 4);
+        int H = 0;
+        if (delta != 0) {
+            if (Cmax == Rprime)
+                H = 60 * std::fmod(((Gprime - Bprime) / delta), 6);
+            else if (Cmax == Gprime)
+                H = 60 * (((Bprime - Rprime) / delta) + 2);
+            else if (Cmax == Bprime)
+                H = 60 * (((Rprime - Gprime) / delta) + 4);
+        }
         if (H < 0)
             H = 360 + H;
 

@@ -37,7 +37,9 @@ Mesh ParseOBJ(const std::string& filepath)
         if (head == "v")
         {
             // Parsing if line is a vertex definition
-            float a, b, c;
+            float a = 0.0f;
+            float b = 0.0f;
+            float c = 0.0f;
             if (!(ss >> a) || !(ss >> b) || !(ss >> c))
                 std::printf("Failed to parse line in OBJ file:\n  %s\n", line.c_str());
             vertices.push_back(float3(a, b, c));
@@ -45,7 +47,8 @@ Mesh ParseOBJ(const std::string& filepath)
         else if (head == "vt")
         {
             // Parsing if line is a UV definition
-            float a, b;
+            float a = 0.0f;
+            float b = 0.0f;
             if (!(ss >> a) || !(ss >> b))
                 std::printf("Failed to parse line in OBJ file:\n  %s\n", line.c_str());
             uvs.push_back(float2(a, b));
@@ -53,7 +56,9 @@ Mesh ParseOBJ(const std::string& filepath)
         else if (head == "vn")
         {
             // Parsing if line is a normal definition
-            float a, b, c;
+            float a = 0.0f;
+            float b = 0.0f;
+            float c = 0.0f;
             if (!(ss >> a) || !(ss >> b) || !(ss >> c))
                 std::printf("Failed to parse line in OBJ file:\n  %s\n", line.c_str());
             normals.push_back(float3(a, b, c));
@@ -63,7 +68,9 @@ Mesh ParseOBJ(const std::string& filepath)
             // Parsing if line is a face definition
             for (int i = 0; i < 3; i++)
             {
-                int v, vt, vn;
+                int v = 0;
+                int vt = 0;
+                int vn = 0;
                 if (!(ss >> v) || !(ss >> vt) || !(ss >> vn))
                     std::printf("Failed to parse line in OBJ file:\n  %s\n", line.c_str());
                 meshVertices.push_back(
