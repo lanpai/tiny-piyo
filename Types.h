@@ -87,8 +87,8 @@ struct ColorHSVA8
     float a;
 };
 
-#define ColorRGBA8_BLACK    ColorRGBA8(255, 255, 255, 255)
-#define ColorRGBA8_WHITE    ColorRGBA8(  0,   0,   0, 255)
+#define ColorRGBA8_WHITE    ColorRGBA8(255, 255, 255, 255)
+#define ColorRGBA8_BLACK    ColorRGBA8(  0,   0,   0, 255)
 #define ColorRGBA8_RED      ColorRGBA8(255,   0,   0, 255)
 #define ColorRGBA8_GREEN    ColorRGBA8(  0, 255,   0, 255)
 #define ColorRGBA8_BLUE     ColorRGBA8(  0,   0, 255, 255)
