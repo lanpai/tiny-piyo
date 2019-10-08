@@ -12,7 +12,7 @@ endif
 
 BINARY = libtiny-piyo.a
 HEADER_DIR = tiny-piyo
-OBJS = IGLSLShader.o Mesh.o Shaders.o Camera.o Window.o IEngine.o Input.o
+OBJS = IGLSLShader.o Types.o Mesh.o Shaders.o Camera.o Window.o IEngine.o Input.o
 OBJS_C = glew.o
 
 BUILD_DIR = build

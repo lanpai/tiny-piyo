@@ -74,12 +74,15 @@ struct float2
     float y;
 };
 
+struct ColorRGBA8;
 struct ColorHSVA8
 {
     ColorHSVA8() :
         h(0), s(0), v(0), a(0) {}
     ColorHSVA8(int H, float S, float V, float A) :
         h(H), s(S), v(V), a(A) {}
+
+    const ColorRGBA8 ConvertToRGBA8();
 
     int h;
     float s;
@@ -100,41 +103,7 @@ struct ColorRGBA8
     ColorRGBA8(unsigned char R, unsigned char G, unsigned char B, unsigned char A) :
         r(R), g(G), b(B), a(A) {}
 
-    const ColorHSVA8 ConvertToHSVA8()
-    {
-        float Rprime = (float)r / 255;
-        float Gprime = (float)g / 255;
-        float Bprime = (float)b / 255;
-
-        float A = (float)a / 255;
-
-        float Cmax = std::fmax(std::fmax(Rprime, Gprime), Bprime);
-        float Cmin = std::fmin(std::fmin(Rprime, Gprime), Bprime);
-
-        float delta = Cmax - Cmin;
-
-        int H = 0;
-        if (delta != 0) {
-            if (Cmax == Rprime)
-                H = 60 * std::fmod(((Gprime - Bprime) / delta), 6);
-            else if (Cmax == Gprime)
-                H = 60 * (((Bprime - Rprime) / delta) + 2);
-            else if (Cmax == Bprime)
-                H = 60 * (((Rprime - Gprime) / delta) + 4);
-        }
-        if (H < 0)
-            H = 360 + H;
-
-        float S;
-        if (Cmax == 0)
-            S = 0;
-        else
-            S = delta / Cmax;
-
-        float V = Cmax;
-
-        return ColorHSVA8(H, S, V, A);
-    }
+    const ColorHSVA8 ConvertToHSVA8();
 
     unsigned char r;
     unsigned char g;
